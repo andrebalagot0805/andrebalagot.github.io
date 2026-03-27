@@ -1,464 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Andre Matthew Balagot &mdash; Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Andre Matthew Balagot — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --ink:     #0d0d0d;
-    --paper:   #f5f0e8;
-    --cream:   #ede8dc;
-    --gold:    #b8922a;
-    --gold-lt: #d4a843;
-    --muted:   #6b6458;
-    --rule:    rgba(13,13,13,0.12);
-  }
+    :root {
+      --bg: #f9f7f4;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --accent: #2d6a4f;
+      --accent-light: #e9f5ee;
+      --border: #e4e0d9;
+      --tag-bg: #edf2f0;
+      --tag-text: #2d6a4f;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
 
-  html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-  body {
-    font-family: 'DM Mono', monospace;
-    background: var(--paper);
-    color: var(--ink);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: .4;
-  }
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,247,244,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.03em; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
 
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
-    border-bottom: 1px solid var(--rule);
-  }
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 8px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; gap: .8rem; }
+    .mobile-menu a { text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500; padding: .5rem 0; min-height: 44px; display: flex; align-items: center; }
+    .mobile-menu.open { display: flex; }
 
-  .hero-left {
-    padding: 60px 56px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-right: 1px solid var(--rule);
-    position: relative;
-  }
+    /* CONTAINER */
+    .container { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
 
-  .hero-left::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 56px; right: 56px;
-    height: 1px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-  }
+    /* HERO */
+    .hero { padding: 5rem 0 4rem; display: flex; align-items: center; gap: 3rem; }
+    .hero-photo {
+      flex-shrink: 0;
+      width: clamp(110px, 18vw, 150px);
+      height: clamp(110px, 18vw, 150px);
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 4px solid var(--surface);
+      box-shadow: 0 0 0 3px var(--accent);
+      display: block;
+    }
+    .hero-text h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 2.8rem); line-height: 1.15; margin-bottom: .4rem; }
+    .hero-title { color: var(--accent); font-size: 1rem; font-weight: 500; margin-bottom: .8rem; }
+    .hero-bio { color: var(--muted); font-size: 0.95rem; max-width: 480px; }
+    .hero-links { margin-top: 1.4rem; display: flex; gap: .8rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: .4rem; padding: .55rem 1.2rem; border-radius: 6px; font-size: .88rem; font-weight: 500; text-decoration: none; transition: all .2s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #235c40; }
+    .btn-outline { border: 1.5px solid var(--border); color: var(--text); background: var(--surface); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-  .site-label {
-    font-size: 10px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+    /* SECTIONS */
+    section { padding: 3.5rem 0; border-top: 1px solid var(--border); }
+    .section-label { font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.6rem; }
+    h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: 1.5rem; }
 
-  .name-block {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 0;
-  }
+    /* EDUCATION */
+    .edu-item { display: flex; gap: 1.2rem; margin-bottom: 1.6rem; }
+    .edu-icon { flex-shrink: 0; width: 42px; height: 42px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--accent); }
+    .edu-icon svg { width: 20px; height: 20px; }
+    .edu-body h3 { font-size: 1rem; font-weight: 600; margin-bottom: .1rem; }
+    .edu-body .school { color: var(--accent); font-size: .9rem; font-weight: 500; }
+    .edu-body .period { color: var(--muted); font-size: .82rem; margin-top: .2rem; }
 
-  .name-eyebrow {
-    font-size: 10px;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; transition: box-shadow .2s, transform .2s; }
+    .project-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .project-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .4rem; }
+    .project-card p { color: var(--muted); font-size: .88rem; margin-bottom: .9rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .tag { background: var(--tag-bg); color: var(--tag-text); font-size: .74rem; font-weight: 600; padding: .2rem .6rem; border-radius: 20px; }
+    .project-link { display: inline-flex; align-items: center; gap: .3rem; margin-top: .9rem; font-size: .82rem; font-weight: 500; color: var(--accent); text-decoration: none; }
+    .project-link:hover { text-decoration: underline; }
 
-  .name-main {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(42px, 5vw, 72px);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--ink);
-  }
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .skill-group h4 { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .pill { background: var(--surface); border: 1.5px solid var(--border); border-radius: 20px; padding: .25rem .75rem; font-size: .82rem; font-weight: 500; }
 
-  .name-main em {
-    font-style: italic;
-    color: var(--gold);
-  }
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; color: var(--muted); font-size: .82rem; }
+    footer a { color: var(--accent); text-decoration: none; }
 
-  .name-sub {
-    margin-top: 24px;
-    font-size: 11px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    max-width: 300px;
-    line-height: 2;
-  }
-
-  .hero-footer {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: .1em;
-  }
-
-  .hero-right {
-    position: relative;
-    background: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .photo-frame {
-    position: relative;
-    width: 220px;
-    height: 220px;
-  }
-
-  .photo-frame::before {
-    content: '';
-    position: absolute;
-    inset: -12px;
-    border: 1px solid var(--gold);
-    opacity: .5;
-  }
-
-  .photo-frame::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border: 1px solid var(--rule);
-  }
-
-  .photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: grayscale(20%) contrast(1.05);
-  }
-
-  .hero-right-label {
-    position: absolute;
-    bottom: 40px;
-    right: 40px;
-    font-size: 9px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-  }
-
-  .deco-num {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 120px;
-    font-weight: 300;
-    color: var(--rule);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 56px;
-  }
-
-  .section {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 40px;
-    padding: 72px 0;
-    border-bottom: 1px solid var(--rule);
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity .7s ease, transform .7s ease;
-  }
-
-  .section.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  .section-label { padding-top: 4px; }
-
-  .section-tag {
-    font-size: 9px;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .section-tag::before {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 400;
-    margin-top: 10px;
-    color: var(--ink);
-    line-height: 1.2;
-  }
-
-  .section-content { padding-top: 4px; }
-
-  .entry {
-    padding: 24px 0;
-    border-bottom: 1px solid var(--rule);
-    position: relative;
-    padding-left: 20px;
-  }
-
-  .entry::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 30px;
-    width: 4px; height: 4px;
-    background: var(--gold);
-    border-radius: 50%;
-  }
-
-  .entry:last-child { border-bottom: none; }
-
-  .entry-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.3;
-  }
-
-  .entry-sub {
-    margin-top: 6px;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
-
-  .skill-pill {
-    background: var(--cream);
-    padding: 14px 16px;
-    font-size: 10px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--ink);
-    position: relative;
-    overflow: hidden;
-    transition: background .25s;
-  }
-
-  .skill-pill::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 0; height: 2px;
-    background: var(--gold);
-    transition: width .35s ease;
-  }
-
-  .skill-pill:hover { background: #e8e3d5; }
-  .skill-pill:hover::after { width: 100%; }
-
-  footer {
-    padding: 48px 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid var(--rule);
-  }
-
-  footer .foot-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 300;
-    font-style: italic;
-  }
-
-  footer .foot-note {
-    font-size: 9px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: none; }
-  }
-
-  .hero-left > * { animation: fadeUp .8s ease both; }
-  .hero-left > :nth-child(1) { animation-delay: .1s; }
-  .hero-left > :nth-child(2) { animation-delay: .25s; }
-  .hero-left > :nth-child(3) { animation-delay: .4s; }
-  .photo-frame { animation: fadeUp .9s ease .35s both; }
-
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-right { height: 300px; border-bottom: 1px solid var(--rule); }
-    .hero-left { padding: 48px 28px; border-right: none; }
-    main { padding: 0 28px; }
-    .section { grid-template-columns: 1fr; gap: 20px; padding: 48px 0; }
-    .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    footer { padding: 36px 28px; flex-direction: column; gap: 12px; text-align: center; }
-  }
-</style>
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .container { max-width: 100%; padding: 0 2rem; }
+      .hero { padding: 4rem 0 3rem; gap: 2rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      nav { padding: 0 1.25rem; }
+      .container { padding: 0 1.25rem; }
+      .hero { flex-direction: column; align-items: center; text-align: center; gap: 1.4rem; padding: 2.5rem 0 2rem; }
+      .hero-photo { width: 120px; height: 120px; }
+      .hero-text h1 { font-size: 1.9rem; }
+      .hero-bio { max-width: 100%; }
+      .hero-links { justify-content: center; }
+      section { padding: 2.5rem 0; }
+      h2 { font-size: 1.4rem; margin-bottom: 1.2rem; }
+      .edu-item { gap: .9rem; }
+      .edu-icon { width: 36px; height: 36px; }
+      .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: .8rem; }
+      .btn { padding: .6rem 1rem; font-size: .85rem; }
+      .mobile-menu { padding: 1rem 1.25rem; }
+    }
+    @media (max-width: 400px) {
+      .hero-text h1 { font-size: 1.65rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-links { flex-direction: column; width: 100%; }
+      .btn { width: 100%; justify-content: center; }
+      .project-card { padding: 1.1rem; }
+    }
+    @media (max-width: 320px) {
+      .hero-text h1 { font-size: 1.45rem; }
+      .hero-title { font-size: .88rem; }
+      nav { height: 54px; }
+    }
+  </style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-left">
-    <span class="site-label">Portfolio &mdash; 2025</span>
-    <div class="name-block">
-      <p class="name-eyebrow">Information Technology</p>
-      <h1 class="name-main">
-        Andre<br>
-        <em>Matthew</em><br>
-        Balagot
-      </h1>
-      <p class="name-sub">
-        BS Information Technology&nbsp;&middot;&nbsp;Ateneo De Davao University<br>
-        Developer&nbsp;&middot;&nbsp;Researcher&nbsp;&middot;&nbsp;Problem Solver
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AMB.</a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <!-- Your photo is embedded as base64 in the downloaded file -->
+    <img src="data:image/png;base64,YOUR_PHOTO_HERE" alt="Andre Matthew Balagot" class="hero-photo" />
+
+    <div class="hero-text">
+      <h1>Andre Matthew Balagot</h1>
+      <p class="hero-title">BS Information Technology · Ateneo de Davao University</p>
+      <p class="hero-bio">
+        A passionate IT student with a focus on web development and software engineering.
+        I enjoy building clean, useful digital experiences.
       </p>
+      <div class="hero-links">
+        <a href="https://github.com/andrebalagot0805" target="_blank" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:andrebalagot0805@gmail.com" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email Me
+        </a>
+      </div>
     </div>
-    <span class="hero-footer">Davao City, Philippines</span>
   </div>
 
-  <div class="hero-right">
-    <span class="deco-num">01</span>
-    <div class="photo-frame">
-      <img src="485af6c7-13e9-4385-aade-fb575d211da9.jpg" alt="Andre Matthew O. Balagot">
-    </div>
-    <span class="hero-right-label">Andre M. Balagot</span>
-  </div>
-</header>
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label">Background</p>
+    <h2>Education</h2>
 
-<main>
-  <section class="section">
-    <div class="section-label">
-      <p class="section-tag">01</p>
-      <h2 class="section-title">Education</h2>
-    </div>
-    <div class="section-content">
-      <div class="entry">
-        <p class="entry-title">Bachelor of Science in Information Technology</p>
-        <p class="entry-sub">Ateneo De Davao University</p>
+    <div class="edu-item">
+      <div class="edu-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
       </div>
-      <div class="entry">
-        <p class="entry-title">Senior High School</p>
-        <p class="entry-sub">Colegio De San Ignacio</p>
+      <div class="edu-body">
+        <h3>Bachelor of Science in Information Technology</h3>
+        <div class="school">Ateneo de Davao University</div>
+        <div class="period">2022 – Present · Davao City, Philippines</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="edu-body">
+        <h3>Senior High School — STEM Strand</h3>
+        <div class="school">Colegio De San Ignacio</div>
+        <div class="period">2020 – 2022</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="edu-body">
+        <h3>Junior High School</h3>
+        <div class="school">Colegio De San Ignacio</div>
+        <div class="period">2016 – 2020</div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-label">
-      <p class="section-tag">02</p>
-      <h2 class="section-title">Projects</h2>
-    </div>
-    <div class="section-content">
-      <div class="entry">
-        <p class="entry-title">Portfolio Website</p>
-        <p class="entry-sub">HTML & Bootstrap</p>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Work</p>
+    <h2>Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <h3>Student Portal App</h3>
+        <p>A web app that helps students track their grades, schedules, and announcements in one place.</p>
+        <div class="project-tags">
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MySQL</span>
+        </div>
+        <a href="#" class="project-link" target="_blank">
+          View on GitHub
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
       </div>
-      <div class="entry">
-        <p class="entry-title">Student Management System</p>
-        <p class="entry-sub">Web Application</p>
+
+      <div class="project-card">
+        <h3>Barangay Records System</h3>
+        <p>A local government records management system built for a barangay office in Davao City.</p>
+        <div class="project-tags">
+          <span class="tag">PHP</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">MariaDB</span>
+        </div>
+        <a href="#" class="project-link" target="_blank">
+          View on GitHub
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
       </div>
+
+      <div class="project-card">
+        <h3>Personal Portfolio</h3>
+        <p>This responsive CV/portfolio page built with vanilla HTML, CSS, and JavaScript. Hosted via GitHub Pages.</p>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">GitHub Pages</span>
+        </div>
+        <a href="https://andrebalagot.github.io" class="project-link" target="_blank">
+          View Live
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+      </div>
+
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-label">
-      <p class="section-tag">03</p>
-      <h2 class="section-title">Skills</h2>
-    </div>
-    <div class="section-content">
-      <div class="skills-grid">
-        <div class="skill-pill">HTML</div>
-        <div class="skill-pill">CSS</div>
-        <div class="skill-pill">JavaScript</div>
-        <div class="skill-pill">Python</div>
-        <div class="skill-pill">Java</div>
-        <div class="skill-pill">Problem Solving</div>
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Capabilities</p>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="skill-pills">
+          <span class="pill">HTML</span>
+          <span class="pill">CSS</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">PHP</span>
+          <span class="pill">Python</span>
+          <span class="pill">Java</span>
+        </div>
       </div>
+
+      <div class="skill-group">
+        <h4>Frameworks</h4>
+        <div class="skill-pills">
+          <span class="pill">React</span>
+          <span class="pill">Bootstrap</span>
+          <span class="pill">Tailwind CSS</span>
+          <span class="pill">Laravel</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Tools & Platforms</h4>
+        <div class="skill-pills">
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">VS Code</span>
+          <span class="pill">Figma</span>
+          <span class="pill">MySQL</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Soft Skills</h4>
+        <div class="skill-pills">
+          <span class="pill">Teamwork</span>
+          <span class="pill">Communication</span>
+          <span class="pill">Problem Solving</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-label">
-      <p class="section-tag">04</p>
-      <h2 class="section-title">Affiliations</h2>
-    </div>
-    <div class="section-content">
-      <div class="entry">
-        <p class="entry-title">Computer Society</p>
-        <p class="entry-sub">Member</p>
-      </div>
-    </div>
-  </section>
+</div>
 
-  <section class="section">
-    <div class="section-label">
-      <p class="section-tag">05</p>
-      <h2 class="section-title">Research</h2>
-    </div>
-    <div class="section-content">
-      <div class="entry">
-        <p class="entry-title">AI-Based Recommendation System</p>
-        <p class="entry-sub">Undergraduate Research</p>
-      </div>
-    </div>
-  </section>
-</main>
-
+<!-- FOOTER -->
 <footer>
-  <span class="foot-name">Andre Matthew O. Balagot</span>
-  <span class="foot-note">BS Information Technology &nbsp;&middot;&nbsp; Davao City</span>
+  <p>© 2025 Andre Matthew Balagot · <a href="mailto:andrebalagot0805@gmail.com">andrebalagot0805@gmail.com</a></p>
 </footer>
 
 <script>
-  const sections = document.querySelectorAll('.section');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  sections.forEach(s => obs.observe(s));
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
 </script>
+
 </body>
 </html>
